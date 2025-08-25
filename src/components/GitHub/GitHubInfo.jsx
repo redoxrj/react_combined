@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link, useLoaderData, useParams } from "react-router-dom"
+import { DefaultUsernameContext } from "../../contexts/DefaultUsernameContext"
 
 
 function GitHub() {
@@ -28,8 +29,43 @@ function GitHub() {
   //   callGitApi()
 
   // },[safeUserName])
+  const[userInfo,setUserInfo] = useState({})
 
-  const  userInfo = useLoaderData() // useLoaderData hook automatically resolves the promise returned by the loader function and provides the data to the component. This is a more optimized way to handle data fetching in React Router, as it allows you to fetch data before rendering the component.
+  const   userInfoFromLoader = useLoaderData() // useLoaderData hook automatically resolves the promise returned by the loader function and provides the data to the component. This is a more optimized way to handle data fetching in React Router, as it allows you to fetch data before rendering the component.
+  console.log(userInfo);
+  const {defaultUserName} =  useContext(DefaultUsernameContext)
+ 
+   useEffect(()=>{
+
+     if(userInfoFromLoader){
+    setUserInfo(userInfoFromLoader)
+  }
+  else{
+  const safeUserName = defaultUserName || "redoxrj"
+  const callGitApi =async()=>{
+    try {
+      const res= await fetch(`https://api.github.com/users/${safeUserName}`)
+      const data = await res.json()
+      // console.log(data);
+      setUserInfo(data)
+      console.log(userInfo);
+      
+      
+
+      // setUserInfo(data)
+
+
+      
+    } catch (error) {
+      
+    }
+  }
+  callGitApi()
+
+  }
+    
+
+  },[defaultUserName,userInfoFromLoader])
 
 
   return (
@@ -37,8 +73,8 @@ function GitHub() {
     <div className="card" style={{width: "30rem", margin: "auto"}}>
   <img src={userInfo?.avatar_url} className="card-img-top rounded-circle p-3 mx-auto" style={{width: "300px"}} alt="User Image"/>
   <div className="card-body text-center">
-    <h5 className="card-title">{userInfo?.login}</h5>
-    <p className="card-text">{userInfo?.name}</p>
+    <h5 className="card-title">{userInfo?.login || defaultUserName}</h5>
+    <p className="card-text">{userInfo?.name }</p>
   </div>
   <ul className="list-group list-group-flush">
     <li className="list-group-item">Git Repo's: {userInfo?.public_repos}</li>
@@ -60,6 +96,8 @@ export default GitHub
 export const optimisedApiCallGithubLoader =async({params})=>{
   // const {userName} = useParams() // calling a React hook (useParams) inside a loader function, and that’s not allowed.
   //Instead of useParams, the loader receives the route params as an argument.
+
+  //  const {defaultUserName} =useContext(DefaultUsernameContext) // any react hook cannot be used in non react component function like this loader function
   const safeUserName = params?.userName || "redoxrj"
   console.log("safeUserName",safeUserName);
   

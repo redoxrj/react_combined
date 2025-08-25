@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Card from "./Card";
+import { DefaultUsernameContext } from "../../contexts/DefaultUsernameContext";
+import {toast} from 'react-toastify'
+
 
 function PassGen() {
     //  let num=40
@@ -45,9 +48,30 @@ function PassGen() {
       
       
         },[]) 
+
+        const [username,setUsername] =useState('')
+
+       const {defaultUserName,setDefaultUserName} =useContext(DefaultUsernameContext)
+
+       const handleSaveUsername =()=>{
+        setDefaultUserName(username ||  defaultUserName)
+        toast.success('Default Username Saved!')
+        
+       }
       
   return (
     <>
+   <div className="mb-3 w-25">
+  <label htmlFor="githubUsername" className="form-label">Default GitHub Username:</label>
+  <div className="input-group">
+    <input type="text" id="githubUsername" className="form-control" placeholder="Username" aria-label="Username" onChange={(e)=>setUsername(e.target.value)} value={username || defaultUserName}/>
+    <button className="btn btn-primary" type="button" onClick={handleSaveUsername}>
+      <i className="bi bi-floppy2-fill"></i>
+    </button>
+  </div>
+</div>
+
+    
       <div id="users" style={{display:"flex",gap:"10px",flexWrap:"wrap"}}>
       {userList && userList.map((item)=>(
 

@@ -15,7 +15,10 @@ function Header() {
           <NavLink className={({isActive})=>`nav-link active ${isActive? 'text-warning':'text-white'}`} aria-current="page" to="/">PassGenerator</NavLink>
         </li>
         <li className="nav-item">
-          <NavLink className={({isActive})=>`nav-link active ${isActive? 'text-warning':'text-white'}`}  aria-current="page" to="/github">Github</NavLink>
+          <NavLink className={({isActive})=>`nav-link active ${isActive? 'text-warning':'text-white'}`}  aria-current="page" to="/github">GithubFinder</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className={({isActive})=>`nav-link active ${isActive? 'text-warning':'text-white'}`}  aria-current="page" to="/todo">ToDo</NavLink>
         </li>
        
         {/* <li className="nav-item dropdown">
