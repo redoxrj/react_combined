@@ -1,0 +1,64 @@
+.todo-container{
+    background-color: #15243E;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.todo-container input::placeholder{
+    color: white;
+    opacity: 1;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #1e2a3a;      /* dark background */
+  margin-top: 8px;
+  transition: background 0.2s ease;
+}
+
+.todo-item:hover {
+  background: #2a3a52;      /* lighter hover */
+}
+
+.todo-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.todo-text {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 16px;
+}
+
+.todo-text:focus {
+  outline: none;
+}
+
+.todo-icon {
+  cursor: pointer;
+  font-size: 22px;
+  transition: transform 0.2s ease;
+}
+
+.todo-icon:hover {
+  transform: scale(1.2);
+}
+
+.edit-icon {
+  color: #ffc107;   /* Bootstrap yellow */
+}
+
+.delete-icon {
+  color: #dc3545;   /* Bootstrap red */
+}

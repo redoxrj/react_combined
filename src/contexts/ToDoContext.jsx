@@ -42,7 +42,7 @@ export const ToDoContextProvider = ({children})=>{
 
     useEffect(()=>{ // Context Providers(ToDoContextProvider) are react components too so we can use react hooks like useEffect — they mount once and render their children ,
         const isExistsToDos= localStorage.getItem('ToDos')
-        console.log(isExistsToDos);
+        // console.log(isExistsToDos);
         if(isExistsToDos && isExistsToDos!=='undefined') setToDoC(JSON.parse(isExistsToDos))
 
     },[])
